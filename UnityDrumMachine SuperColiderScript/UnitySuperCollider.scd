@@ -1,4 +1,8 @@
-
+s.boot;
+s.options.memSize;
+s.options.memSize = 64;
+s.options.numBuffers = 1024;
+s.reboot;
 
 ( //set up OSC reciever
 	n = NetAddr("127.0.0.1", NetAddr.langPort); // local machine
@@ -23,6 +27,12 @@
 	//m.sendMsg("/green", 0.5);
 	//m.sendMsg("/purple", 0.5);
 )
+
+Synth(\kick)
+Synth(\rhodey_sc)
+
+
+
 
 //Setup isntuments
 (
