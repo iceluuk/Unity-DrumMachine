@@ -8,41 +8,32 @@ Server.killAll;
 ( //set up OSC reciever
 	n = NetAddr("127.0.0.1", NetAddr.langPort); // local machine
 
-OSCdef(\red, {|msg, time, addr, recvPort| Synth.new(\kick,[\pan, msg[1]])}, '/red');
+    OSCdef(\red, {|msg, time, addr, recvPort| Synth.new(\kick,[\pan, msg[1]])}, '/red'); //Activated by RythmNodes
 
-    OSCdef(\orange, {|msg, time, addr, recvPort| Synth(\neurosnare,[\pan, msg[1]]) }, '/orange');
+    OSCdef(\orange, {|msg, time, addr, recvPort| Synth(\snare,[\pan, msg[1]]) }, '/orange'); //OneshotNode Snare
 
-	OSCdef(\yellow, {|msg, time, addr, recvPort| Synth(\rhodey_sc,[\pan, msg[1]])}, '/yellow');
+    OSCdef(\yellow, {|msg, time, addr, recvPort| Synth(\hihat,[\pan, msg[1]]) }, '/yellow'); //OneshotNode Hihat
 
-    //OSCdef(\OverloadSound, {|msg, time, addr, recvPort| Synth(\overload)}, '/overload');
-
-	//OSCdef(\green, {|msg, time, addr, recvPort| )}, '/green');
-	//OSCdef(\purple, {|msg, time, addr, recvPort| }, '/purple');
+    OSCdef(\purple, {|msg, time, addr, recvPort| (instrument: \keys, pan: msg[1], note: msg[2]).play();}, '/purple'); //SequenceNode
 )
 
 { //Test OSC reciever
 	m = NetAddr("127.0.0.1", NetAddr.langPort); // loopback
 	m.sendMsg("/red", 1);
 	m.sendMsg("/orange", 1);
-	m.sendMsg("/yellow", -1);
-	//m.sendMsg("/green", 0.5);
-	//m.sendMsg("/purple", 0.5);
+	m.sendMsg("/yellow", -0.5, -20);
 )
-
-Synth(\kick)
-Synth(\rhodey_sc)
-
-
 
 
 //Setup isntuments
+//
 (
-SynthDef(\rhodey_sc, {
+SynthDef(\keys, {
     |
     // standard meanings
-    out = 0, freq = 55, gate = 1, pan = 0.5, amp = 0.1,
+    out = 0, freq = 55, gate = 1, pan = 0, amp = 0.1,
     // all of these range from 0 to 1
-    vel = 0.8, modIndex = 0.5, mix = 0.2, lfoSpeed = 3, lfoDepth = 0.2
+    vel = 0.8, modIndex = 0.5, mix = 0.2, lfoSpeed = 0.5, lfoDepth = 0.2
     |
     var env1, env2, env3, env4;
     var osc1, osc2, osc3, osc4, snd;
@@ -71,20 +62,9 @@ SynthDef(\rhodey_sc, {
 }).add;
 )
 
-/*
+//NeuroSnare
 (
-e.stream = Pbind(
-    \scale, Scale.mixolydian,
-    \octave, 4,
-	\root, [2],
-    \degree, Prand(#[0, 2, 3, 5, 0, 2, 3, 5, 7, 9, 10, 15, 10, 9, 7, 7, 4, 2
-    ], inf),
-).asStream();
-)
-*/
-
-(
-SynthDef(\neurosnare, {
+SynthDef(\snare, {
     var snd;
     // a percussive click to give it some attack
     snd = LPF.ar(HPF.ar(WhiteNoise.ar, 300), 8000) * Env.linen(0.001, 0.01, 0.001).ar;
@@ -114,6 +94,21 @@ SynthDef(\kick, {
 }).add;
 )
 
+(
+SynthDef(\hihat, {
+    |out = 0, pan = 0, amp = 0.3|
+    var click, clickAmp;
+    var noise, noiseAmp;
+    var snd;
 
+    // noise -> resonance -> expodec envelope
+    noiseAmp = EnvGen.ar(Env.perc(0.001, 0.3, curve: -8), doneAction: 2);
+    noise = Mix(BPF.ar(ClipNoise.ar, [4010, 4151], [0.15, 0.56], [1.0, 0.6])) * 0.7 * noiseAmp;
+
+    snd = noise;
+
+    Out.ar(out, Pan2.ar(snd, pan, amp));
+}).add;
+)
 
 

@@ -20,7 +20,7 @@ public class Node : MonoBehaviour
         mainCamera = FindObjectOfType<Camera>();
 
         transmitter.RemoteHost = "127.0.0.1";
-        transmitter.RemotePort = 57121;
+        transmitter.RemotePort = 57120;
     }
 
     private void OnMouseDown()

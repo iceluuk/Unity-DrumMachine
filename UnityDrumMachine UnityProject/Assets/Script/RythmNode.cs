@@ -21,7 +21,7 @@ public class RhythmNode : Node
     void Update()
     {
         DragNode();
-        
+
         if (isActive)
         {
             circleRadius += growthRate * Time.deltaTime;
@@ -36,10 +36,17 @@ public class RhythmNode : Node
                     {
                         oneshotNode.Activate();
                     }
+
                     PushNode pushNode = otherNode as PushNode;
                     if (pushNode != null)
                     {
                         pushNode.Activate();
+                    }
+
+                    SequenceNode sequenceNode = otherNode as SequenceNode;
+                    if ( sequenceNode != null)
+                    {
+                         sequenceNode.Activate();
                     }
 
                     RhythmNode rhythmNode = otherNode as RhythmNode;
@@ -56,6 +63,11 @@ public class RhythmNode : Node
                         PushNode[] pNodes =  FindObjectsOfType<PushNode>();
                         foreach(PushNode pushNodeToReset in pNodes){
                             pushNodeToReset.Invoke("Reset", 0.1f);
+                        } 
+
+                        SequenceNode[] sNodes =  FindObjectsOfType<SequenceNode>();
+                        foreach(SequenceNode sequenceNodeToReset in sNodes){
+                           sequenceNodeToReset.Invoke("Reset", 0.1f);
                         } 
                     }
                 }
