@@ -1,9 +1,11 @@
 s.boot;
 s.options.memSize;
-s.options.memSize = 64;
-s.options.numBuffers = 1024;
+s.options.memSize = 4096;
+s.options.numBuffers;
+s.options.numBuffers = 1;
 s.reboot;
 Server.killAll;
+
 
 ( //set up OSC reciever
 	n = NetAddr("127.0.0.1", NetAddr.langPort); // local machine
@@ -14,16 +16,19 @@ Server.killAll;
 
     OSCdef(\yellow, {|msg, time, addr, recvPort| Synth(\hihat,[\pan, msg[1]]) }, '/yellow'); //OneshotNode Hihat
 
-    OSCdef(\purple, {|msg, time, addr, recvPort| (instrument: \keys, pan: msg[1], note: msg[2]).play();}, '/purple'); //SequenceNode
+    OSCdef(\purple, {|msg, time, addr, recvPort| (instrument: \keys, pan: msg[1], note: msg[2]).play();}, '/purple'); //SequenceNode Keys - In prototype used for bass
+
+    OSCdef(\green, {|msg, time, addr, recvPort| (instrument: \keys, pan: msg[1], note: [msg[2], msg[3], msg[4], msg[5]]).play();}, '/green'); //SequenceNode Keys - In prototype used for chords
 )
 
 { //Test OSC reciever
 	m = NetAddr("127.0.0.1", NetAddr.langPort); // loopback
-	m.sendMsg("/red", 1);
-	m.sendMsg("/orange", 1);
-	m.sendMsg("/yellow", -0.5, -20);
+	m.sendMsg("/red", 0.3);
+	m.sendMsg("/orange", 0.5);
+	m.sendMsg("/yellow", -0.2);
+	m.sendMsg("/purple", -0.5);
+	m.sendMsg("/green", -0.5, -5, -2, 2, 4);
 )
-
 
 //Setup isntuments
 //
