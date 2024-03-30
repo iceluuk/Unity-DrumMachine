@@ -15,6 +15,10 @@ public class OneshotNode : Node
         effectParticleSystem.Stop();
     }
 
+    private void Update() {
+        DragNode();
+    }
+
     public void Activate()
     {
         if(hasBeenActivated) return;

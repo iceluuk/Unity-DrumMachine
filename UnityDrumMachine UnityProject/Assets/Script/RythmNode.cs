@@ -20,6 +20,8 @@ public class RhythmNode : Node
 
     void Update()
     {
+        DragNode();
+        
         if (isActive)
         {
             circleRadius += growthRate * Time.deltaTime;

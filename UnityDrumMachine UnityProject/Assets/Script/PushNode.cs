@@ -19,6 +19,10 @@ public class PushNode : Node
         effectParticleSystem = GetComponent<ParticleSystem>();
         effectParticleSystem.Stop();
     }
+    
+    private void Update() {
+        DragNode();
+    }
 
     public void Activate()
     {

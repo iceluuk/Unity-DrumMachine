@@ -6,10 +6,13 @@ using extOSC;
 public class Node : MonoBehaviour
 {
     public string oscAddress = "/trigger";
-    public float[] floatMesages = {1f};
+    public float[] floatMesages = { 1f };
 
     OSCTransmitter transmitter;
     Camera mainCamera;
+
+    private bool isDragging = false;
+    private Vector3 offset;
 
     public void SetupTransmitter()
     {
@@ -18,6 +21,33 @@ public class Node : MonoBehaviour
 
         transmitter.RemoteHost = "127.0.0.1";
         transmitter.RemotePort = 57121;
+    }
+
+    private void OnMouseDown()
+    {
+        isDragging = true;
+        offset = transform.position - GetMouseWorldPos();
+    }
+
+    private void OnMouseUp()
+    {
+        isDragging = false;
+    }
+
+    private Vector3 GetMouseWorldPos()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = -mainCamera.transform.position.z;
+        return mainCamera.ScreenToWorldPoint(mousePos);
+    }
+
+    public void DragNode()
+    {
+        if (isDragging)
+        {
+            Vector3 targetPos = GetMouseWorldPos() + offset;
+            transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 10f);
+        }
     }
 
     public void SendOSCMessage()
@@ -35,7 +65,8 @@ public class Node : MonoBehaviour
 
         message.AddValue(OSCValue.Float(pan));
 
-        foreach(float floatMessage in floatMesages){
+        foreach (float floatMessage in floatMesages)
+        {
             message.AddValue(OSCValue.Float(floatMessage));
         }
 
