@@ -3,15 +3,16 @@ s.options.memSize;
 s.options.memSize = 64;
 s.options.numBuffers = 1024;
 s.reboot;
+Server.killAll;
 
 ( //set up OSC reciever
 	n = NetAddr("127.0.0.1", NetAddr.langPort); // local machine
 
-	OSCdef(\red, {|msg, time, addr, recvPort| Synth(\kick)}, '/red');
+OSCdef(\red, {|msg, time, addr, recvPort| Synth.new(\kick,[\pan, msg[1]])}, '/red');
 
-    OSCdef(\orange, {|msg, time, addr, recvPort| Synth(\neurosnare)}, '/orange');
+    OSCdef(\orange, {|msg, time, addr, recvPort| Synth(\neurosnare,[\pan, msg[1]]) }, '/orange');
 
-	OSCdef(\yellow, {|msg, time, addr, recvPort| Synth(\rhodey_sc)}, '/yellow');
+	OSCdef(\yellow, {|msg, time, addr, recvPort| Synth(\rhodey_sc,[\pan, msg[1]])}, '/yellow');
 
     //OSCdef(\OverloadSound, {|msg, time, addr, recvPort| Synth(\overload)}, '/overload');
 
@@ -21,9 +22,9 @@ s.reboot;
 
 { //Test OSC reciever
 	m = NetAddr("127.0.0.1", NetAddr.langPort); // loopback
-	m.sendMsg("/red", 0.5);
-	m.sendMsg("/orange", 0.5);
-	m.sendMsg("/yellow", 0.5);
+	m.sendMsg("/red", 1);
+	m.sendMsg("/orange", 1);
+	m.sendMsg("/yellow", -1);
 	//m.sendMsg("/green", 0.5);
 	//m.sendMsg("/purple", 0.5);
 )
