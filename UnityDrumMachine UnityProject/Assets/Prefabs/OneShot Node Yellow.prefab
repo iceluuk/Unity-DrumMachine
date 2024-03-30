@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1500727784518138167}
   - component: {fileID: 2313367999938858105}
   m_Layer: 0
-  m_Name: OneShot Node 1
+  m_Name: OneShot Node Yellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

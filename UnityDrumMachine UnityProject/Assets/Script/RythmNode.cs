@@ -31,24 +31,6 @@ public class RhythmNode : Node
                 Node otherNode = collider.GetComponent<Node>();
                 if (otherNode != null && otherNode != this)
                 {
-                    OneshotNode oneshotNode = otherNode as OneshotNode;
-                    if (oneshotNode != null)
-                    {
-                        oneshotNode.Activate();
-                    }
-
-                    PushNode pushNode = otherNode as PushNode;
-                    if (pushNode != null)
-                    {
-                        pushNode.Activate();
-                    }
-
-                    SequenceNode sequenceNode = otherNode as SequenceNode;
-                    if ( sequenceNode != null)
-                    {
-                         sequenceNode.Activate();
-                    }
-
                     RhythmNode rhythmNode = otherNode as RhythmNode;
                     if (rhythmNode != null)
                     {
@@ -69,7 +51,27 @@ public class RhythmNode : Node
                         foreach(SequenceNode sequenceNodeToReset in sNodes){
                            sequenceNodeToReset.Invoke("Reset", 0.1f);
                         } 
+
+                        return;
                     }
+
+                    OneshotNode oneshotNode = otherNode as OneshotNode;
+                    if (oneshotNode != null)
+                    {
+                        oneshotNode.Activate();
+                    }
+
+                    PushNode pushNode = otherNode as PushNode;
+                    if (pushNode != null)
+                    {
+                        pushNode.Activate();
+                    }
+
+                    SequenceNode sequenceNode = otherNode as SequenceNode;
+                    if ( sequenceNode != null)
+                    {
+                         sequenceNode.Activate();
+                    } 
                 }
 
             }

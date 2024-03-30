@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4651386158040912784}
   - component: {fileID: 7653666459615802332}
-  - component: {fileID: 8059589419058158109}
+  - component: {fileID: 1479881779589594008}
   - component: {fileID: 8745918377385972937}
   - component: {fileID: 4309534906221584204}
   - component: {fileID: 1500727784518138167}
   - component: {fileID: 2313367999938858105}
   m_Layer: 0
-  m_Name: Sequence Node
+  m_Name: Chord Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.542943, g: 0, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.06287718, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8059589419058158109
+--- !u!114 &1479881779589594008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,17 +101,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5e73199be1666489c92e42288aff56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oscAddress: /purple
-  floatMesages: []
+  oscAddress: /green
+  floatMesages:
+  - 1
   noteSequence:
   - notesInStep:
-    - -20
+    - -8
+    - -3
+    - 0
+    - 2
   - notesInStep:
-    - -25
+    - -8
+    - -3
+    - 0
+    - 2
   - notesInStep:
-    - -23
+    - -8
+    - -3
+    - 0
+    - 2
   - notesInStep:
-    - -28
+    - -8
+    - -3
+    - 0
+    - 2
+  - notesInStep:
+    - -5
+    - -2
+    - 2
+    - 5
+  - notesInStep:
+    - -5
+    - -2
+    - 2
+    - 5
+  - notesInStep:
+    - -5
+    - -2
+    - 2
+    - 5
+  - notesInStep:
+    - -5
+    - -2
+    - 2
+    - 5
+  - notesInStep:
+    - -5
+    - -2
+    - 2
+    - 4
+  - notesInStep:
+    - -5
+    - -2
+    - 2
+    - 4
+  - notesInStep:
+    - -5
+    - -2
+    - 2
+    - 4
+  - notesInStep:
+    - -5
+    - -2
+    - 2
+    - 4
+  - notesInStep:
+    - -8
+    - -3
+    - 0
+    - 4
+  - notesInStep:
+    - -8
+    - -3
+    - 0
+    - 4
+  - notesInStep:
+    - -8
+    - -3
+    - 0
+    - 4
+  - notesInStep:
+    - -8
+    - -3
+    - 0
+    - 4
 --- !u!198 &8745918377385972937
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -302,7 +375,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.54772395, g: 0.05882353, b: 0.9411765, a: 1}
+      maxColor: {r: 0.10568204, g: 0.9411765, b: 0.05882353, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -751,7 +824,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 0.63, y: 24.4, z: 1}
+    m_Scale: {x: 24, y: 0.6, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -1059,7 +1132,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 159.9
+        scalar: 224.6
         minScalar: 30
         maxCurve:
           serializedVersion: 2
